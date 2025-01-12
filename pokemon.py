@@ -1,13 +1,40 @@
 import pypokedex as pokedex
+from moves import Move
 
 class Pokemon:
-    def __init__(self, name):
+    def __init__(self, name: str):
         p = pokedex.get(name=name)
         self.name = p.name
         self.dex = p.dex
         self.types = p.types
         self.base_stats = p.base_stats
-        self.moves = ["move1", "move2", "move3", "move4"]
+        self.moves = []
     
+    def add_move(self, move: Move):
+        if move not in self.moves:
+            self.moves.append(move)
+        else:
+            print(f"{self.name} already knows {move.name}")
+    
+    def delete_move(self, move):
+        if isinstance(move, str):
+            for m in self.moves:
+                if m.name.lower() == move.lower():
+                    self.moves.remove(m)
+                    return
+            print(f"{self.name} doesn't know {move}")
+        elif isinstance(move, Move):
+            if move in self.moves:
+                self.moves.remove(move)
+            else:
+                print(f"{self.name} doesn't know {move.name}")
+        
+                
+
+
     def __str__(self):
-        return f"#{self.dex} {self.name} -- {self.types}\n{self.base_stats}\n{self.moves}"
+        return ("-----------------------------------------------------------------------\n"
+                f"#{self.dex} {self.name} - {self.types}\n"
+                f"{self.base_stats}\n"
+                f"{[m.name for m in self.moves]}\n"
+                "-----------------------------------------------------------------------")
