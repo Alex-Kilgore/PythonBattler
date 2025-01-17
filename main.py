@@ -1,5 +1,5 @@
-from pokemon import Pokemon
-from moves import Move
+from src.pokemon import Pokemon
+from src.moves import Move
 
 
 if __name__ == "__main__":
