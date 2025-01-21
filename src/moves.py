@@ -17,3 +17,10 @@ class Move:
     def __str__(self):
         return f"Name: {self.name}, Type: {self.type}, Power: {self.power}, Accuracy: {self.accuracy}%"
     
+    def __eq__(self, other):
+        if not isinstance(other, Move):
+            return False
+        return (self.name == other.name and 
+                self.type == other.type and 
+                self.power == other.power and 
+                self.accuracy == other.accuracy)

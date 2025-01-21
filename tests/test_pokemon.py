@@ -24,6 +24,15 @@ def test_create_pokemon(charizard):
     assert "fire" in [t.lower() for t in charizard.types]
     assert "flying" in [t.lower() for t in charizard.types]
 
+def test_pokemon_equality(charizard):
+    same_pokemon = Pokemon("Charizard")
+    assert charizard == same_pokemon
+
+def test_pokemon_inequality(charizard):
+    other_pokemon = Pokemon("Pikachu")
+    assert charizard != other_pokemon
+
+
 def test_add_move(charizard, flamethrower):
     charizard.add_move(flamethrower)
     assert flamethrower in charizard.moves
