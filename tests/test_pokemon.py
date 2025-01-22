@@ -33,6 +33,8 @@ def test_pokemon_inequality(charizard):
     other_pokemon = Pokemon("Pikachu")
     assert charizard != other_pokemon
 
+def test_pokemon_equality_not_pokemon(charizard):
+    assert charizard != "not a pokemon"
 
 def test_add_move(charizard, flamethrower):
     charizard.add_move(flamethrower)
@@ -50,6 +52,15 @@ def test_add_four_moves(charizard, four_moves):
         charizard.add_move(move)
     assert charizard.moves == four_moves
     assert len(charizard.moves) == 4
+
+def test_pokemon_string_representation(charizard, four_moves):
+    for move in four_moves:
+        charizard.add_move(move)
+    pokemon_str = str(charizard)
+    assert str(charizard.dex) in pokemon_str
+    assert charizard.name in pokemon_str
+    assert str(charizard.base_stats) in pokemon_str
+    assert all(move.name in pokemon_str for move in charizard.moves)
 
 def test_exceed_move_limit(charizard, four_moves):
     # Add four moves
@@ -75,9 +86,12 @@ def test_delete_move_by_name(charizard, four_moves):
     assert charizard.moves == [four_moves[1], four_moves[2], four_moves[3]]
     assert len(charizard.moves) == 3
 
-def test_delete_nonexistent_move(charizard):
+def test_delete_nonexistent_move_by_name(charizard):
     # Try to delete a move that doesn't exist
     charizard.delete_move("nonexistent")
     assert len(charizard.moves) == 0
 
-    
+def test_delete_nonexistent_move_by_instance(charizard, flamethrower):
+    """Test deleting a move by instance that Pokemon doesn't know"""
+    charizard.delete_move(flamethrower)
+    assert len(charizard.moves) == 0
