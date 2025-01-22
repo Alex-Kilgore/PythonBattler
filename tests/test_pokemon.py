@@ -1,6 +1,7 @@
 import pytest
 from src.pokemon import Pokemon
 from src.moves import Move
+from src.types import Type
 
 @pytest.fixture
 def charizard():
@@ -21,8 +22,8 @@ def four_moves():
 def test_create_pokemon(charizard):
     assert charizard.dex == 6
     assert charizard.name.lower() == "charizard"
-    assert "fire" in [t.lower() for t in charizard.types]
-    assert "flying" in [t.lower() for t in charizard.types]
+    assert Type.FIRE in charizard.types
+    assert Type.FLYING in charizard.types
 
 def test_pokemon_equality(charizard):
     same_pokemon = Pokemon("Charizard")

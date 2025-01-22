@@ -1,12 +1,13 @@
 import pypokedex as pokedex
 from src.moves import Move
+from src.types import Type
 
 class Pokemon:
     def __init__(self, name: str):
         p = pokedex.get(name=name)
         self.name = p.name
         self.dex = p.dex
-        self.types = p.types
+        self.types = [Type.from_string(t) for t in p.types]
         self.base_stats = p.base_stats
         self.moves = []
     
@@ -34,7 +35,7 @@ class Pokemon:
                 
     def __str__(self):
         return ("-----------------------------------------------------------------------\n"
-                f"#{self.dex} {self.name} - {self.types}\n"
+                f"#{self.dex} {self.name} - {[type.name for type in self.types]}\n"
                 f"{self.base_stats}\n"
                 f"{[m.name for m in self.moves]}\n"
                 "-----------------------------------------------------------------------")
